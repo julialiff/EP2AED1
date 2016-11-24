@@ -30,16 +30,41 @@ int tamanho(PFILA f){
 }
 
 bool inserirElemento(PFILA f, int id, float prioridade){
-  /* completar */
-  if(id >= f->maxRegistros || id < 0 || f->arranjo[id]!=NULL) return false;
+  if(id >= f->maxRegistros || id < 0 || f->arranjo[id]!=NULL || f->elementosNoHeap == f->maxRegistros) return false;
   PONT elem = (PONT) malloc(sizeof(PONT)); // cria um elemento do tipo PONT
   elem->id = id;
   elem->prioridade = prioridade;
   f->arranjo[id] = elem;
+  elem->posicao = f->elementosNoHeap;
   if(f->elementosNoHeap == 0){ //se não há elementos no heap
     f->heap[0] = elem;
-    f->elementosNoHeap = f->elementosNoHeap + 1;
-    elem->posicao = 0;
+    f->elementosNoHeap++;
+  }
+  else{
+    int i = elem->posicao;
+    f->heap[i] = elem;
+    int pai = (i-1)/2;
+    while(elem->prioridade > f->heap[pai]->prioridade){
+      // printf("****************\n");
+      // printf("f->heap[pai]->id: %d \n", f->heap[pai]->id);
+      // printf("elem->id: %d \n", elem->id);
+      PONT aux = f->heap[pai];
+      f->heap[pai] = elem;
+      f->heap[i] = aux;
+      f->heap[pai]->posicao = pai;
+      f->heap[i]->posicao = i;
+
+      i = elem->posicao;
+      pai = (i-1)/2;
+      // f->elementosNoHeap++;
+      // printf("****************\n");
+      // printf("f->heap[pai]->id: %d \n", f->heap[pai]->id);
+      // printf("elem->id: %d \n", elem->id);
+      // printf("f->heap[i]->id: %d \n", f->heap[i]->id);
+      // printf("****************\n");
+
+    }
+    f->elementosNoHeap++;
   }
   return true;
 }

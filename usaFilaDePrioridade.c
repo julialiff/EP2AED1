@@ -8,18 +8,20 @@ int main() {
   exibirLog(f);
   int t = tamanho(f);
   printf("Tamanho: %d\n",t);
-  // if(inserirElemento(f, 3, 3)) printf("ok\n");
-  // else printf("nok (2)\n");
-  // exibirLog(f);
-  // if(inserirElemento(f, 2, 2)) printf("ok\n");
-  // else printf("nok (3)\n");
-  // exibirLog(f);
-  // if(inserirElemento(f, 0, 0)) printf("ok\n");
-  // else printf("nok (4)\n");
-  // exibirLog(f);
-  // if(inserirElemento(f, 5, 5)) printf("ok\n");
-  // else printf("nok (5)\n");
-  // exibirLog(f);
+
+  if(inserirElemento(f, 3, 3)) printf("ok\n");
+  else printf("nok (2)\n");
+  exibirLog(f);
+
+  if(inserirElemento(f, 2, 2)) printf("ok\n");
+  else printf("nok (3)\n");
+  exibirLog(f);
+  if(inserirElemento(f, 0, 0)) printf("ok\n");
+  else printf("nok (4)\n");
+  exibirLog(f);
+  if(inserirElemento(f, 5, 5)) printf("ok\n");
+  else printf("nok (5)\n");
+  exibirLog(f);
   // if(aumentarPrioridade(f, 5, 10)) printf("ok\n");
   // else printf("nok (6)\n");
   // exibirLog(f);

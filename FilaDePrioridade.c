@@ -26,8 +26,7 @@ bool exibirLog(PFILA f){
 }
 
 int tamanho(PFILA f){
-  /* completar */
-  return 0;
+  return f->elementosNoHeap;
 }
 
 bool inserirElemento(PFILA f, int id, float prioridade){

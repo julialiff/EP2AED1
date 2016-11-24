@@ -6,7 +6,8 @@ int main() {
   if(inserirElemento(f, 1, 1)) printf("ok\n");
   else printf("nok (1)\n");
   exibirLog(f);
-
+  int t = tamanho(f);
+  printf("Tamanho: %d\n",t);
   // if(inserirElemento(f, 3, 3)) printf("ok\n");
   // else printf("nok (2)\n");
   // exibirLog(f);

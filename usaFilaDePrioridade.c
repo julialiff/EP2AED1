@@ -12,18 +12,17 @@ int main() {
   if(inserirElemento(f, 3, 3)) printf("ok\n");
   else printf("nok (2)\n");
   exibirLog(f);
+  // if(inserirElemento(f, 2, 2)) printf("ok\n");
+  // else printf("nok (3)\n");
+  // exibirLog(f);
+  // if(inserirElemento(f, 0, 0)) printf("ok\n");
+  // else printf("nok (4)\n");
+  // exibirLog(f);
+  // if(inserirElemento(f, 5, 5)) printf("ok\n");
+  // else printf("nok (5)\n");
+  // exibirLog(f);
 
-  if(inserirElemento(f, 2, 2)) printf("ok\n");
-  else printf("nok (3)\n");
-  exibirLog(f);
-  if(inserirElemento(f, 0, 0)) printf("ok\n");
-  else printf("nok (4)\n");
-  exibirLog(f);
-  if(inserirElemento(f, 5, 5)) printf("ok\n");
-  else printf("nok (5)\n");
-  exibirLog(f);
-
-  printf("**********************");
+  printf("**********************\n");
 
   if(aumentarPrioridade(f, 5, 10)) printf("ok\n");
   else printf("nok (6)\n");
@@ -41,15 +40,23 @@ int main() {
   else printf("nok (10) - esperado, elemento com id=4 nao existe\n");
   exibirLog(f);
 
-  // PONT prioritario;
-  // prioritario = removerElemento(f);
-  // if (prioritario) printf("Prioritario: %i, %f\n", prioritario->id, prioritario->prioridade);
-  // else printf("Fila vazia (1)\n");
-  // exibirLog(f);
-  // prioritario = removerElemento(f);
-  // if (prioritario) printf("Prioritario: %i, %f\n", prioritario->id, prioritario->prioridade);
-  // else printf("Fila vazia (2)\n");
-  // exibirLog(f);
+  printf("**********************\n");
+
+
+
+  PONT prioritario;
+  prioritario = removerElemento(f);
+  if (prioritario) printf("Prioritario: %i, %f\n", prioritario->id, prioritario->prioridade);
+  else printf("Fila vazia (1)\n");
+  exibirLog(f);
+
+
+  prioritario = removerElemento(f);
+  if (prioritario) printf("Prioritario: %i, %f\n", prioritario->id, prioritario->prioridade);
+  else printf("Fila vazia (2)\n");
+  exibirLog(f);
+
+
   // prioritario = removerElemento(f);
   // if (prioritario) printf("Prioritario: %i, %f\n", prioritario->id, prioritario->prioridade);
   // else printf("Fila vazia (3)\n");

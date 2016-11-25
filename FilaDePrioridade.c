@@ -96,8 +96,31 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
 }
 
 PONT removerElemento(PFILA f){
-  /* completar */
-  return NULL;
+  if(f->elementosNoHeap == 0){ //fila vazia
+    return NULL;
+  }
+  if(f->elementosNoHeap == 1){ //apenas pai
+    PONT elem = f->heap[0];
+    int i = elem->posicao;
+    f->heap[0] = NULL;
+    f->arranjo[i] = NULL;
+    f->elementosNoHeap--;
+    return elem;
+  }
+  if(f->elementosNoHeap == 2){ //pai + filho à esquerda
+    PONT elem = f->heap[0];
+    PONT novoPai = f->heap[1];
+    f->arranjo[elem->id] = NULL;
+    novoPai->posicao = 0;
+    f->heap[0] = novoPai;
+    f->heap[1] = NULL;
+    f->elementosNoHeap--;
+    return elem;
+  }
+  PONT esq, dir;
+  esq = f->arranjo[1];
+  dir = f->arranjo[2];
+  f->elementosNoHeap--;
 }
 
 bool consultarPrioridade(PFILA f, int id, float* resposta){

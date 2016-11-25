@@ -97,9 +97,14 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
   atual = f->arranjo[id];
   atual->prioridade = novaPrioridade;
   i = atual->posicao;
+  // printf("------ i: %d\n", i);
   e = i*2+1;
+  // printf("------ e: %d\n", e);
   d = i*2+2;
-  if(f->heap[e] || f->heap[d]){ //se tem filhos:
+  // printf("------ d: %d\n", d);
+  if(e > f->maxRegistros) return true;
+
+  while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:
     if(f->heap[e]) esq = f->heap[e];
     else esq = NULL;
     if(f->heap[d]) dir = f->heap[d];
@@ -108,10 +113,16 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
       troca = esq;
       if(atual->prioridade < troca->prioridade){
         int posicaoPai = atual->posicao;
+        // printf("posicaoPai %d \n", posicaoPai);
+        // printf("troca->posicao %d \n", troca->posicao);
+        // printf("atual->posicao %d \n", atual->posicao);
         atual->posicao = troca->posicao;
+        // printf("atual->posicao %d \n", atual->posicao);
         troca->posicao = posicaoPai;
+        // printf("troca->posicao %d \n", troca->posicao);
         f->heap[atual->posicao] = atual;
         f->heap[troca->posicao] = troca;
+        if(atual->posicao*2+1 > f->maxRegistros) break;
       }
     }
     if(esq && dir){
@@ -119,13 +130,27 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
       else troca = dir;
       if(atual->prioridade < troca->prioridade){
         int posicaoPai = atual->posicao;
+        // printf("posicaoPai %d \n", posicaoPai);
+        // printf("troca->posicao %d \n", troca->posicao);
+        // printf("atual->posicao %d \n", atual->posicao);
         atual->posicao = troca->posicao;
+        // printf("atual->posicao %d \n", atual->posicao);
         troca->posicao = posicaoPai;
+        // printf("troca->posicao %d \n", troca->posicao);
         f->heap[atual->posicao] = atual;
         f->heap[troca->posicao] = troca;
+        if(atual->posicao*2+1 > f->maxRegistros) break;
       }
     }
+    i = atual->posicao;
+    // printf("------ i: %d\n", i);
+    e = i*2+1;
+    // printf("------ e: %d\n", e);
+    d = i*2+2;
+    // printf("------ d: %d\n", d);
+
   }
+
   return true;
 }
 
@@ -151,67 +176,7 @@ PONT removerElemento(PFILA f){
     return raiz;
   }
 
-  PONT esq, dir, novoPai;
-  int pai, i;
 
-  esq = f->heap[1];
-  dir = f->heap[2];
-
-  printf("raiz %f\n ", raiz->prioridade);
-  printf("esquerda %f \n", esq->prioridade);
-  printf("direita %f \n", dir->prioridade);
-
-
-  if(esq->prioridade > dir->prioridade) novoPai = esq;
-  else novoPai = dir;
-  printf("novo pai: %f \n", novoPai->prioridade);
-
-  i = novoPai->posicao; //posição ATUAL do pai
-  printf("i %d\n", i);
-
-  pai = (i-1)/2;
-
-  printf("pai %d\n", pai);
-
-  printf("%d \n", ((i*2)+1));
-  printf("%f \n", f->heap[3]->prioridade);
-  if (f->heap[((i*2)+1)]) esq = f->heap[((i*2)+1)];
-  else esq = NULL;
-  printf("ESQUERDA PRIORIDADE %f \n\n", esq->prioridade);
-  if (f->heap[((i*2)+2)]) dir = f->heap[((i*2)+2)];
-  else dir = NULL;
-  printf("DIREITA %p \n\n", dir);
-  if(esq || dir){ //verifica se tem filhos
-    //mexe nos filhos
-    if(esq && !dir){
-      novoPai->posicao = pai;
-      f->heap[pai] = novoPai; //novoPai vira a raiz do heap
-      f->heap[esq->posicao] = NULL;
-      printf("f->heap[i] %f \n", f->heap[i]->prioridade);
-      f->heap[i] = esq;
-      esq->posicao = i; //i é a antiga posição do pai
-    }
-    if(dir && !esq){ //Não ocorre se tudo estiver certo
-      novoPai->posicao = pai;
-      f->heap[pai] = novoPai; //novoPai vira a raiz do heap
-      f->heap[dir->posicao] = NULL;
-      printf("f->heap[i] %f \n", f->heap[i]->prioridade);
-      f->heap[i] = dir;
-      dir->posicao = i; //i é a antiga posição do pai
-    }
-    if(esq && dir){
-      PONT sobe = esq;
-      if (esq->prioridade > dir->prioridade) sobe = esq;
-      else sobe = dir;
-    }
-  }
-  else{ //se não tem filhos
-    novoPai->posicao = pai;
-    f->heap[pai] = novoPai; //novoPai vira a raiz do heap
-    f->heap[i] = NULL;
-  }
-
-  // laço de repetição fim
 
 
   f->arranjo[raiz->id] = NULL;

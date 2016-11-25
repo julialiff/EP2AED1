@@ -97,11 +97,11 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
   atual = f->arranjo[id];
   atual->prioridade = novaPrioridade;
   i = atual->posicao;
-  // printf("------ i: %d\n", i);
+  printf("------ i: %d\n", i);
   e = i*2+1;
-  // printf("------ e: %d\n", e);
+  printf("------ e: %d\n", e);
   d = i*2+2;
-  // printf("------ d: %d\n", d);
+  printf("------ d: %d\n", d);
   if(e > f->maxRegistros) return true;
 
   while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:orig
@@ -113,13 +113,13 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
       troca = esq;
       if(atual->prioridade < troca->prioridade){
         int posicaoPai = atual->posicao;
-        // printf("posicaoPai %d \n", posicaoPai);
-        // printf("troca->posicao %d \n", troca->posicao);
-        // printf("atual->posicao %d \n", atual->posicao);
+        printf("posicaoPai %d \n", posicaoPai);
+        printf("troca->posicao %d \n", troca->posicao);
+        printf("atual->posicao %d \n", atual->posicao);
         atual->posicao = troca->posicao;
-        // printf("atual->posicao %d \n", atual->posicao);
+        printf("atual->posicao %d \n", atual->posicao);
         troca->posicao = posicaoPai;
-        // printf("troca->posicao %d \n", troca->posicao);
+        printf("troca->posicao %d \n", troca->posicao);
         f->heap[atual->posicao] = atual;
         f->heap[troca->posicao] = troca;
         if(atual->posicao*2+1 > f->maxRegistros) break;
@@ -130,13 +130,13 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
       else troca = dir;
       if(atual->prioridade < troca->prioridade){
         int posicaoPai = atual->posicao;
-        // printf("posicaoPai %d \n", posicaoPai);
-        // printf("troca->posicao %d \n", troca->posicao);
-        // printf("atual->posicao %d \n", atual->posicao);
+        printf("posicaoPai %d \n", posicaoPai);
+        printf("troca->posicao %d \n", troca->posicao);
+        printf("atual->posicao %d \n", atual->posicao);
         atual->posicao = troca->posicao;
-        // printf("atual->posicao %d \n", atual->posicao);
+        printf("atual->posicao %d \n", atual->posicao);
         troca->posicao = posicaoPai;
-        // printf("troca->posicao %d \n", troca->posicao);
+        printf("troca->posicao %d \n", troca->posicao);
         f->heap[atual->posicao] = atual;
         f->heap[troca->posicao] = troca;
         if(atual->posicao*2+1 > f->maxRegistros) break;
@@ -162,7 +162,7 @@ PONT removerElemento(PFILA f){
   if(f->elementosNoHeap == 1){ //apenas raiz
     int i = raiz->posicao;
     f->heap[0] = NULL;
-    f->arranjo[i] = NULL;
+    f->arranjo[raiz->id] = NULL;
     f->elementosNoHeap--;
     return raiz;
   }
@@ -193,6 +193,8 @@ PONT removerElemento(PFILA f){
     f->elementosNoHeap--;
     return raiz;
   }
+  printf("raiz %d \n\n\n\n", raiz->id);
+
 
   while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:orig
     if(f->heap[e]) esq = f->heap[e];

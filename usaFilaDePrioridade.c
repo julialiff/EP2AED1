@@ -64,6 +64,8 @@ int main() {
   else printf("Fila vazia (7)\n");
   exibirLog(f);
 
+
+
   if(inserirElemento(f, 1, 1)) printf("ok\n");
   else printf("nok (10)\n");
   exibirLog(f);
@@ -80,7 +82,8 @@ int main() {
   else printf("nok (14)\n");
   exibirLog(f);
 
-  printf("\n\nReduzindo prioridade\n");
+
+
 
 
   if(reduzirPrioridade(f, 5, 0)) printf("ok\n");
@@ -89,9 +92,9 @@ int main() {
   if(reduzirPrioridade(f, 0, 1)) printf("ok\n");
   else printf("nok (16) - esperado, nova prioridade eh maior\n");
   exibirLog(f);
-  if(reduzirPrioridade(f, 3, 2)) printf("ok\n");
-  else printf("nok (17)\n");
-  exibirLog(f);
+  // if(reduzirPrioridade(f, 3, 2)) printf("ok\n");
+  // else printf("nok (17)\n");
+  // exibirLog(f);
   if(reduzirPrioridade(f, 3, 1.5)) printf("ok\n");
   else printf("nok (18) - esperado, nova prioridade eh igual\n");
   exibirLog(f);

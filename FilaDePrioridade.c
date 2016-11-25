@@ -101,7 +101,10 @@ PONT removerElemento(PFILA f){
 }
 
 bool consultarPrioridade(PFILA f, int id, float* resposta){
-  /* completar */
-  return false;
+  if(id >= f->maxRegistros || id < 0 || f->arranjo[id] == NULL) return false;
+  else{
+    *resposta = f->arranjo[id]->prioridade;
+    return true;
+  }
 }
 

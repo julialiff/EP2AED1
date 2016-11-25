@@ -92,10 +92,41 @@ bool aumentarPrioridade(PFILA f, int id, float novaPrioridade){
 
 bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
   if(id < 0 || id >= f->maxRegistros || f->arranjo[id] == NULL || f->arranjo[id]->prioridade <= novaPrioridade) return false;
-  PONT esq, dir, atual;
-  int i, e, s;
-
-  return false;
+  PONT esq, dir, atual, troca;
+  int i, e, d;
+  atual = f->arranjo[id];
+  atual->prioridade = novaPrioridade;
+  i = atual->posicao;
+  e = i*2+1;
+  d = i*2+2;
+  if(f->heap[e] || f->heap[d]){ //se tem filhos:
+    if(f->heap[e]) esq = f->heap[e];
+    else esq = NULL;
+    if(f->heap[d]) dir = f->heap[d];
+    else dir = NULL;
+    if(esq && !dir){
+      troca = esq;
+      if(atual->prioridade < troca->prioridade){
+        int posicaoPai = atual->posicao;
+        atual->posicao = troca->posicao;
+        troca->posicao = posicaoPai;
+        f->heap[atual->posicao] = atual;
+        f->heap[troca->posicao] = troca;
+      }
+    }
+    if(esq && dir){
+      if(esq->prioridade > dir->prioridade) troca = esq;
+      else troca = dir;
+      if(atual->prioridade < troca->prioridade){
+        int posicaoPai = atual->posicao;
+        atual->posicao = troca->posicao;
+        troca->posicao = posicaoPai;
+        f->heap[atual->posicao] = atual;
+        f->heap[troca->posicao] = troca;
+      }
+    }
+  }
+  return true;
 }
 
 PONT removerElemento(PFILA f){

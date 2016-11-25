@@ -70,8 +70,24 @@ bool inserirElemento(PFILA f, int id, float prioridade){
 }
 
 bool aumentarPrioridade(PFILA f, int id, float novaPrioridade){
-  /* completar */
-  return false;
+  if(id < 0 || id >= f->maxRegistros || f->arranjo[id] == NULL || f->arranjo[id]->prioridade >= novaPrioridade) return false;
+  PONT elem = f->arranjo[id];
+  elem->prioridade = novaPrioridade;
+
+  int i = elem->posicao;
+  f->heap[i] = elem;
+  int pai = (i-1)/2;
+  while(elem->prioridade > f->heap[pai]->prioridade){
+    PONT aux = f->heap[pai];
+    f->heap[pai] = elem;
+    f->heap[i] = aux;
+    f->heap[pai]->posicao = pai;
+    f->heap[i]->posicao = i;
+
+    i = elem->posicao;
+    pai = (i-1)/2;
+  }
+  return true;
 }
 
 bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){

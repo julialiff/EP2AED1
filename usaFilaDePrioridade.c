@@ -22,21 +22,24 @@ int main() {
   if(inserirElemento(f, 5, 5)) printf("ok\n");
   else printf("nok (5)\n");
   exibirLog(f);
-  // if(aumentarPrioridade(f, 5, 10)) printf("ok\n");
-  // else printf("nok (6)\n");
-  // exibirLog(f);
-  // if(aumentarPrioridade(f, 0, 15)) printf("ok\n");
-  // else printf("nok (7)\n");
-  // exibirLog(f);
-  // if(aumentarPrioridade(f, 3, 4)) printf("ok\n");
-  // else printf("nok (8)\n");
-  // exibirLog(f);
-  // if(aumentarPrioridade(f, 3, 4)) printf("ok\n");
-  // else printf("nok (9) - esperado, pois a nova prioridade nao eh maior\n");
-  // exibirLog(f);
-  // if(aumentarPrioridade(f, 4, 4)) printf("ok\n");
-  // else printf("nok (10) - esperado, elemento com id=4 nao existe\n");
-  // exibirLog(f);
+
+  printf("**********************");
+
+  if(aumentarPrioridade(f, 5, 10)) printf("ok\n");
+  else printf("nok (6)\n");
+  exibirLog(f);
+  if(aumentarPrioridade(f, 0, 15)) printf("ok\n");
+  else printf("nok (7)\n");
+  exibirLog(f);
+  if(aumentarPrioridade(f, 3, 4)) printf("ok\n");
+  else printf("nok (8)\n");
+  exibirLog(f);
+  if(aumentarPrioridade(f, 3, 4)) printf("ok\n");
+  else printf("nok (9) - esperado, pois a nova prioridade nao eh maior\n");
+  exibirLog(f);
+  if(aumentarPrioridade(f, 4, 4)) printf("ok\n");
+  else printf("nok (10) - esperado, elemento com id=4 nao existe\n");
+  exibirLog(f);
 
   // PONT prioritario;
   // prioritario = removerElemento(f);

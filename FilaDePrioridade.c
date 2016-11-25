@@ -104,7 +104,7 @@ bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
   // printf("------ d: %d\n", d);
   if(e > f->maxRegistros) return true;
 
-  while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:
+  while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:orig
     if(f->heap[e]) esq = f->heap[e];
     else esq = NULL;
     if(f->heap[d]) dir = f->heap[d];
@@ -176,6 +176,70 @@ PONT removerElemento(PFILA f){
     return raiz;
   }
 
+  PONT atual = f->heap[f->elementosNoHeap-1];
+  f->heap[f->elementosNoHeap-1] = NULL;
+  f->heap[0] = atual;
+
+  PONT esq, dir, troca;
+  int i, e, d;
+  i = atual->posicao;
+  // printf("------ i: %d\n", i);
+  e = i*2+1;
+  // printf("------ e: %d\n", e);
+  d = i*2+2;
+  // printf("------ d: %d\n", d);
+  if(e > f->maxRegistros){
+    f->arranjo[raiz->id] = NULL;
+    f->elementosNoHeap--;
+    return raiz;
+  }
+
+  while(f->heap[e]!=NULL || f->heap[d]!=NULL){ //se tem filhos:orig
+    if(f->heap[e]) esq = f->heap[e];
+    else esq = NULL;
+    if(f->heap[d]) dir = f->heap[d];
+    else dir = NULL;
+    if(esq && !dir){
+      troca = esq;
+      if(atual->prioridade < troca->prioridade){
+        int posicaoPai = atual->posicao;
+        // printf("posicaoPai %d \n", posicaoPai);
+        // printf("troca->posicao %d \n", troca->posicao);
+        // printf("atual->posicao %d \n", atual->posicao);
+        atual->posicao = troca->posicao;
+        // printf("atual->posicao %d \n", atual->posicao);
+        troca->posicao = posicaoPai;
+        // printf("troca->posicao %d \n", troca->posicao);
+        f->heap[atual->posicao] = atual;
+        f->heap[troca->posicao] = troca;
+        if(atual->posicao*2+1 > f->maxRegistros) break;
+      }
+    }
+    if(esq && dir){
+      if(esq->prioridade > dir->prioridade) troca = esq;
+      else troca = dir;
+      if(atual->prioridade < troca->prioridade){
+        int posicaoPai = atual->posicao;
+        // printf("posicaoPai %d \n", posicaoPai);
+        // printf("troca->posicao %d \n", troca->posicao);
+        // printf("atual->posicao %d \n", atual->posicao);
+        atual->posicao = troca->posicao;
+        // printf("atual->posicao %d \n", atual->posicao);
+        troca->posicao = posicaoPai;
+        // printf("troca->posicao %d \n", troca->posicao);
+        f->heap[atual->posicao] = atual;
+        f->heap[troca->posicao] = troca;
+        if(atual->posicao*2+1 > f->maxRegistros) break;
+      }
+    }
+    i = atual->posicao;
+    // printf("------ i: %d\n", i);
+    e = i*2+1;
+    // printf("------ e: %d\n", e);
+    d = i*2+2;
+    // printf("------ d: %d\n", d);
+
+  }
 
 
 

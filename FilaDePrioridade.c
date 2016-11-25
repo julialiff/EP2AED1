@@ -91,7 +91,10 @@ bool aumentarPrioridade(PFILA f, int id, float novaPrioridade){
 }
 
 bool reduzirPrioridade(PFILA f, int id, float novaPrioridade){
-  /* completar */
+  if(id < 0 || id >= f->maxRegistros || f->arranjo[id] == NULL || f->arranjo[id]->prioridade <= novaPrioridade) return false;
+  PONT esq, dir, atual;
+  int i, e, s;
+
   return false;
 }
 
@@ -99,28 +102,90 @@ PONT removerElemento(PFILA f){
   if(f->elementosNoHeap == 0){ //fila vazia
     return NULL;
   }
-  if(f->elementosNoHeap == 1){ //apenas pai
-    PONT elem = f->heap[0];
-    int i = elem->posicao;
+  PONT raiz = f->heap[0];
+  if(f->elementosNoHeap == 1){ //apenas raiz
+    int i = raiz->posicao;
     f->heap[0] = NULL;
     f->arranjo[i] = NULL;
     f->elementosNoHeap--;
-    return elem;
+    return raiz;
   }
-  if(f->elementosNoHeap == 2){ //pai + filho à esquerda
-    PONT elem = f->heap[0];
+  if(f->elementosNoHeap == 2){ //raiz + filho à esquerda
     PONT novoPai = f->heap[1];
-    f->arranjo[elem->id] = NULL;
+    f->arranjo[raiz->id] = NULL;
     novoPai->posicao = 0;
     f->heap[0] = novoPai;
     f->heap[1] = NULL;
     f->elementosNoHeap--;
-    return elem;
+    return raiz;
   }
-  PONT esq, dir;
-  esq = f->arranjo[1];
-  dir = f->arranjo[2];
+
+  PONT esq, dir, novoPai;
+  int pai, i;
+
+  esq = f->heap[1];
+  dir = f->heap[2];
+
+  printf("raiz %f\n ", raiz->prioridade);
+  printf("esquerda %f \n", esq->prioridade);
+  printf("direita %f \n", dir->prioridade);
+
+
+  if(esq->prioridade > dir->prioridade) novoPai = esq;
+  else novoPai = dir;
+  printf("novo pai: %f \n", novoPai->prioridade);
+
+  i = novoPai->posicao; //posição ATUAL do pai
+  printf("i %d\n", i);
+
+  pai = (i-1)/2;
+
+  printf("pai %d\n", pai);
+
+  printf("%d \n", ((i*2)+1));
+  printf("%f \n", f->heap[3]->prioridade);
+  if (f->heap[((i*2)+1)]) esq = f->heap[((i*2)+1)];
+  else esq = NULL;
+  printf("ESQUERDA PRIORIDADE %f \n\n", esq->prioridade);
+  if (f->heap[((i*2)+2)]) dir = f->heap[((i*2)+2)];
+  else dir = NULL;
+  printf("DIREITA %p \n\n", dir);
+  if(esq || dir){ //verifica se tem filhos
+    //mexe nos filhos
+    if(esq && !dir){
+      novoPai->posicao = pai;
+      f->heap[pai] = novoPai; //novoPai vira a raiz do heap
+      f->heap[esq->posicao] = NULL;
+      printf("f->heap[i] %f \n", f->heap[i]->prioridade);
+      f->heap[i] = esq;
+      esq->posicao = i; //i é a antiga posição do pai
+    }
+    if(dir && !esq){ //Não ocorre se tudo estiver certo
+      novoPai->posicao = pai;
+      f->heap[pai] = novoPai; //novoPai vira a raiz do heap
+      f->heap[dir->posicao] = NULL;
+      printf("f->heap[i] %f \n", f->heap[i]->prioridade);
+      f->heap[i] = dir;
+      dir->posicao = i; //i é a antiga posição do pai
+    }
+    if(esq && dir){
+      PONT sobe = esq;
+      if (esq->prioridade > dir->prioridade) sobe = esq;
+      else sobe = dir;
+    }
+  }
+  else{ //se não tem filhos
+    novoPai->posicao = pai;
+    f->heap[pai] = novoPai; //novoPai vira a raiz do heap
+    f->heap[i] = NULL;
+  }
+
+  // laço de repetição fim
+
+
+  f->arranjo[raiz->id] = NULL;
   f->elementosNoHeap--;
+  return raiz;
 }
 
 bool consultarPrioridade(PFILA f, int id, float* resposta){
